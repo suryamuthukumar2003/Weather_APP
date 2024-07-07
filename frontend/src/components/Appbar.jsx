@@ -1,10 +1,11 @@
-import React, { useContext, useLayoutEffect, useRef } from 'react'
+import React, { useContext, useLayoutEffect, useRef, useState } from 'react'
 import brandlogo from '../assets/brandlogo.png';
 import { Link } from 'react-router-dom';
 import { Status } from '../App';
 function Appbar() {
   const navbarRef = useRef(null);
   const {setNavWidth}=useContext(Status);
+  const[tog,setTog]=useState(false);
   useLayoutEffect(() => {
     if (navbarRef.current) {
       const navbarWidth = navbarRef.current.offsetHeight;

@@ -13,8 +13,8 @@ function Login() {
 
   return (
 
-    <div className="flex justify-center items-center h-screen bg-gray-100 mx-auto">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-sm">
+    <div className="flex justify-center items-center h-[90vh] bg-transparent w-3/4 mx-auto">
+      <div className="bg-white p-8 rounded shadow-md w-full max-w-sm ">
         <h2 className="text-2xl font-bold mb-6 text-center">Login to Weather App</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">

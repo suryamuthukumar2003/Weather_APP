@@ -8,3 +8,6 @@
     @apply text-white font-semibold font-body text-lg
 }
 
+#root{
+    background-color:rgb(226 232 240);
+}

@@ -3,17 +3,18 @@ import { WiDegrees } from "react-icons/wi";
 import SearchBar from './SearchBar';
 import clearsky from '../assets/clearsky.png'
 import { FaWind } from "react-icons/fa6";
+import { weatherIcons } from '../data/data';
 function WeatherCard() {
   return (
-    <div className='w-3/4 md:w-[500px] p-5 flex flex-col shadow-lg space-y-3 items-center'>
+    <div className='w-3/4 md:w-[500px] p-5 flex flex-col shadow-lg space-y-3 items-center bg-white rounded-lg'>
         <div className='w-3/4'>
             <SearchBar/>
         </div>
         <div>
-            <img src={clearsky} alt="" className='w-20 md:w-32 lg:w-48'/>
+            <img src={weatherIcons['50d']} alt="" className='w-[160px] md:w-32 lg:w-48'/>
         </div>
         <div className='flex'>
-            <span className='text-6xl font-medium self-baseline'>20</span><span className='text-4xl'><WiDegrees/></span><span className='text-5xl self-baseline'>c</span>
+            <span className='text-6xl font-medium self-baseline'>20</span><span className='text-4xl'><WiDegrees/></span><span className='text-5xl self-baseline'>C</span>
         </div>
         <div className='flex space-x-2'>
             <span className='text-xl'>London,</span><span className='text-xl'>GB</span>
