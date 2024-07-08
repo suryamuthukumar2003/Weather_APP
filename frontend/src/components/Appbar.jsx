@@ -1,17 +1,30 @@
-import React, { useContext, useLayoutEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import brandlogo from '../assets/brandlogo.png';
 import { Link } from 'react-router-dom';
 import { Status } from '../App';
+import Logout from './Logout';
+import { useCookies } from 'react-cookie';
 function Appbar() {
   const navbarRef = useRef(null);
   const {setNavWidth}=useContext(Status);
   const[tog,setTog]=useState(false);
+  const[cookie,setCookie]=useCookies();
   useLayoutEffect(() => {
     if (navbarRef.current) {
       const navbarWidth = navbarRef.current.offsetHeight;
       setNavWidth(navbarWidth);
     }
   }, []);
+
+  useEffect(()=>{
+    if(cookie.userId!==null){
+      setTog(true);
+    }
+    else{
+      setTog(false);
+
+    }
+  },[cookie])
   return (
     <nav ref={navbarRef} className='pt-4 shadow-lg bg-gradient-to-r from-blue-500 to-cyan-400 px-7 sticky'>
       <div className='md:flex justify-between'>
@@ -31,6 +44,9 @@ function Appbar() {
                 </li>
                 <li>
                     <Link to='/login' className='menu'>Login</Link>
+                </li>
+                <li className={`${tog?'block':'hidden'}`}>
+                  <Logout/>
                 </li>
             </ul>
         </div>

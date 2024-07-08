@@ -11,12 +11,9 @@ function Signup() {
     const nav=useNavigate();
     const handleSubmit = async(event) => {
         event.preventDefault();
-        console.log(name.current.value,email.current.value,password.current.value);
-        try{
-
             await fetch('http://localhost:8002/user/new',{
                 method:'POST',
-                header:{
+                headers:{
                     'Content-Type':'application/json'
                 },
                 body:JSON.stringify({
@@ -30,17 +27,11 @@ function Signup() {
                     setCookie('token',accessToken,{maxAge:7200})
                     setCookie('userId',userDetails.userId,{maxAge:7200})
                     setTimeout(()=>{
-                        nav('/home');
+                        nav('/');
                     },1000);
                 }
-                else{
-                    console.log(data.message+"\n"+data.error);
-                }
             })
-        }
-        catch(error){
-            console.log("Error"+error)
-        }
+
     };
 
     return (
@@ -65,7 +56,7 @@ function Signup() {
                             Email
                         </label>
                         <input
-                            type="text"
+                            type="email"
                             id="email"
                             ref={email}
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -88,7 +79,7 @@ function Signup() {
                     <div className="flex items-center justify-between space-x-2">
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={handleSubmit}>
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" >
               Register
             </button>
             <Link to='/login' className='text-blue-600 text-sm text-center'>Already have an account</Link>

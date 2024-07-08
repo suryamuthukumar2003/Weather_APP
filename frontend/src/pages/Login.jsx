@@ -1,14 +1,33 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef, useState } from 'react';
+import { useCookies } from 'react-cookie';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleSubmit = (event) => {
+  const email=useRef();
+  const password=useRef();
+  const[cookie,setCookie]=useCookies([]);
+  const nav=useNavigate();
+  const handleSubmit = async(event) => {
     event.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
+    await fetch('http://localhost:8002/user/login',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({
+        "emailId":email.current.value,
+        "password":password.current.value
+      })
+    }).then(res=>res.json()).then(data=>{
+      const{status,accessToken,userDetails}=data;
+      if(status.toLowerCase()==='success'){
+        setCookie('token',accessToken,{maxAge:7200})
+        setCookie('userId',userDetails.userId,{maxAge:7200})
+        setTimeout(()=>{
+          nav('/')
+        },1000)
+      }
+    })
   };
 
   return (
@@ -24,8 +43,7 @@ function Login() {
             <input
               type="email"
               id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              ref={email}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
             />
@@ -37,8 +55,7 @@ function Login() {
             <input
               type="password"
               id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              ref={password}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
             />
